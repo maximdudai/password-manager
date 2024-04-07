@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,16 +36,18 @@
             this.saveAccount = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.passwordGridList = new System.Windows.Forms.DataGridView();
+            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Password = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Platform = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.addPassword = new System.Windows.Forms.Button();
             this.removePassword = new System.Windows.Forms.Button();
             this.togglePassword = new System.Windows.Forms.Button();
-            this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Password = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Platform = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.loadedAccount = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.openAccountDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passwordGridList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -108,6 +110,7 @@
             this.saveAccount.TabIndex = 5;
             this.saveAccount.Text = "SAVE ACCOUNT";
             this.saveAccount.UseVisualStyleBackColor = true;
+            this.saveAccount.Click += new System.EventHandler(this.saveAccount_Click);
             // 
             // groupBox1
             // 
@@ -137,6 +140,32 @@
             this.passwordGridList.ReadOnly = true;
             this.passwordGridList.Size = new System.Drawing.Size(538, 255);
             this.passwordGridList.TabIndex = 0;
+            // 
+            // Account
+            // 
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.Account.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Account.HeaderText = "Account";
+            this.Account.Name = "Account";
+            this.Account.ReadOnly = true;
+            this.Account.ToolTipText = "Login nickname or email";
+            this.Account.Width = 165;
+            // 
+            // Password
+            // 
+            this.Password.HeaderText = "Password";
+            this.Password.Name = "Password";
+            this.Password.ReadOnly = true;
+            this.Password.ToolTipText = "Account Password";
+            this.Password.Width = 165;
+            // 
+            // Platform
+            // 
+            this.Platform.HeaderText = "Platform";
+            this.Platform.Name = "Platform";
+            this.Platform.ReadOnly = true;
+            this.Platform.ToolTipText = "Website";
+            this.Platform.Width = 165;
             // 
             // label4
             // 
@@ -185,32 +214,6 @@
             this.togglePassword.UseVisualStyleBackColor = true;
             this.togglePassword.Click += new System.EventHandler(this.toggleSelectedPassword_Click);
             // 
-            // Account
-            // 
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            this.Account.DefaultCellStyle = dataGridViewCellStyle12;
-            this.Account.HeaderText = "Account";
-            this.Account.Name = "Account";
-            this.Account.ReadOnly = true;
-            this.Account.ToolTipText = "Login nickname or email";
-            this.Account.Width = 165;
-            // 
-            // Password
-            // 
-            this.Password.HeaderText = "Password";
-            this.Password.Name = "Password";
-            this.Password.ReadOnly = true;
-            this.Password.ToolTipText = "Account Password";
-            this.Password.Width = 165;
-            // 
-            // Platform
-            // 
-            this.Platform.HeaderText = "Platform";
-            this.Platform.Name = "Platform";
-            this.Platform.ReadOnly = true;
-            this.Platform.ToolTipText = "Website";
-            this.Platform.Width = 165;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::password_manager.Properties.Resources.selected_password_manager_logo;
@@ -221,18 +224,18 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // label6
+            // loadedAccount
             // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.SystemColors.Desktop;
-            this.label6.Font = new System.Drawing.Font("Swis721 Blk BT", 24F);
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(334, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(277, 39);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "TESTACCOUNT";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.loadedAccount.AutoSize = true;
+            this.loadedAccount.BackColor = System.Drawing.SystemColors.Desktop;
+            this.loadedAccount.Font = new System.Drawing.Font("Swis721 Blk BT", 10F);
+            this.loadedAccount.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.loadedAccount.Location = new System.Drawing.Point(410, 36);
+            this.loadedAccount.Name = "loadedAccount";
+            this.loadedAccount.Size = new System.Drawing.Size(120, 16);
+            this.loadedAccount.TabIndex = 12;
+            this.loadedAccount.Text = "TESTACCOUNT";
+            this.loadedAccount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
@@ -245,14 +248,27 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.toggleAllPasswords);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Desktop;
+            this.label5.Font = new System.Drawing.Font("Swis721 BlkEx BT", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label5.Location = new System.Drawing.Point(234, 101);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 19);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "VISIBILITY";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(821, 450);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.loadedAccount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.togglePassword);
             this.Controls.Add(this.removePassword);
@@ -294,8 +310,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Account;
         private System.Windows.Forms.DataGridViewTextBoxColumn Password;
         private System.Windows.Forms.DataGridViewTextBoxColumn Platform;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label loadedAccount;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.OpenFileDialog openAccountDialog;
     }
 }
 
